@@ -1,4 +1,4 @@
-package li.ruoshi.reduxj.store;
+package li.ruoshi.reduxj;
 
 
 import io.reactivex.annotations.NonNull;

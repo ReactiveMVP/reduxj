@@ -3,7 +3,6 @@ package li.ruoshi.reduxj;
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import li.ruoshi.reduxj.store.State;
 
 /**
  * Created by ruoshili on 2/16/2017.

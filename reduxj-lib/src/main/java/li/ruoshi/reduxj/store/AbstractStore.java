@@ -17,6 +17,7 @@ import io.reactivex.functions.Predicate;
 import li.ruoshi.reduxj.Action;
 import li.ruoshi.reduxj.Middleware;
 import li.ruoshi.reduxj.Reducer;
+import li.ruoshi.reduxj.State;
 import li.ruoshi.reduxj.StateChangedEventArgs;
 import li.ruoshi.reduxj.StateChangedListener;
 import li.ruoshi.reduxj.StateChangedListener2;
