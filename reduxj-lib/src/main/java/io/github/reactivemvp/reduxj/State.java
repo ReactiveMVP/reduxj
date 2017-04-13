@@ -1,13 +1,12 @@
-package li.ruoshi.reduxj;
-
+package io.github.reactivemvp.reduxj;
 
 import io.reactivex.annotations.NonNull;
 
 /**
- * Created by ruoshili on 3/7/2017.
- * <p>
- * 约定一个State类型基本的形态，包括必须有相应的Builder类，必须有一个接受Builder类型参数的构造函数
+ * Created by ruoshi on 3/31/17.
+ * define a basic shape of the State
  */
+
 public abstract class State {
     protected State(final Builder<? extends State> builder) {
         if (builder == null) {
@@ -15,7 +14,7 @@ public abstract class State {
         }
     }
 
-    public abstract static class Builder<T extends State> {
+    protected abstract static class Builder<T extends State> {
         public Builder() {
         }
 
@@ -26,3 +25,4 @@ public abstract class State {
         public abstract T build();
     }
 }
+
