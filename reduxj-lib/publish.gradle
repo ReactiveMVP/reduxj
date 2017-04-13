@@ -1,0 +1,80 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+def localProperties = new Properties()
+localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+def reduxjVer="0.0.1"
+group="io.github.reactivemvp"
+def artifactName="reduxj"
+def projDesc="ReduxJ is yet another port of Redux for Java."
+def webUrl = 'https://reactivemvp.github.io'
+
+
+bintray {
+    user = localProperties.getProperty("bintray.user")
+    key = localProperties.getProperty("bintray.apikey")
+    publications = ['ReduxJ']
+
+    pkg {
+        repo = 'maven'
+        name = "$artifactName"
+        userOrg =  localProperties.getProperty("bintray.org")
+        licenses = ['Apache-2.0']
+        websiteUrl = "$webUrl"
+        vcsUrl = 'https://github.com/ReactiveMVP/reduxj.git'
+
+        version {
+            name = "$reduxjVer"
+            desc = "$projDesc"
+            released = new Date()
+
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = localProperties.getProperty("bintray.gpg.password")
+            }
+        }
+    }
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "iceboundrock"
+            name "Ruoshi Li"
+            email "iceboundrock@msn.com"
+        }
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier "sources"
+}
+
+publishing {
+    publications {
+        ReduxJ(MavenPublication) {
+            from components.java
+            artifact sourceJar
+
+            groupId "$group"
+            artifactId "$artifactName"
+            version "$reduxjVer"
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', "$projDesc")
+                root.appendNode('name', "$artifactName")
+                root.appendNode('url', "$webUrl")
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
